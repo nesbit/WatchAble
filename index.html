@@ -1,8 +1,128 @@
 <html>
 <head>
+<style>
+.unlockbutton {
+	position: absolute;
+	left:10px;
+	top: 250px;
+}
+.TimeCanvas {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+}
+.TimeText {
+	position: absolute;
+	left:10px;
+	top: -15px;
+	color:white;
+}
+.NotificCanvas{
+	position:absolute;
+	left:10px;
+	top:100px;
+}
+.DateText {
+	position: absolute;
+	left:10px;
+	top:20px;
+	color:white;
+}
+.bar {
+	position: absolute;
+	left:0px;
+	top: 0px;
+}
+</style>
+<script>
 
+</script>
 </head>
-<body>
+<body onload="startTime()">
+<body marginheight="0" topmargin="0" vspace="0"
+marginwidth="0" leftmargin="0" hspace="0" style="margin:0; padding:0">
+
+<canvas id="bg" width="290" height="290"> </canvas> 
+
+<canvas class="TimeCanvas" id="timeC" width="270" height="80"> </canvas>
+<h1 class="TimeText" id="clock"> </h1>
+<h2 class="DateText" id="date"> </h2>
+<canvas id="notC" class="NotificCanvas" width="270" height="140"> </canvas>
+
+<a href="HomeScreen.html">
+<canvas id="unlockC" class ="unlockbutton" width="270" height="40"> </canvas> </a>
+
+
+<script>
+<!-- CREATE CANVAS ELEMENTS -->
+var backCanvas = document.getElementById("bg");
+var backContext = backCanvas.getContext("2d");
+var unlockCanvas = document.getElementById("unlockC");
+var unlockContext = unlockCanvas.getContext("2d");
+var timeCanvas = document.getElementById("timeC");
+var timeContext = timeCanvas.getContext("2d");
+var notificationCanvas = document.getElementById("notC");
+var notifContext = notificationCanvas.getContext("2d");
+
+<!-- CANVAS BACKGROUND STYLES -->
+backContext.fillStyle = "#DD4814";
+unlockContext.fillStyle = "#77216F";
+timeContext.fillStyle = "#772953";
+notifContext.fillStyle = "#333333"
+
+<!--  333333-->
+
+<!-- CANVAS FILL RECT -->
+backContext.fillRect(0,0,290,290);
+unlockContext.fillRect(0,0,270,40);
+timeContext.fillRect(0,0,270,80);
+notifContext.fillRect(0,0,270,140);
+
+
+<!-- CANVAS TEXT STYLE -->
+timeContext.fillStyle="#FFF8DC";
+unlockContext.fillStyle="#FFFFFF";
+unlockContext.font="30px Times New Roman";
+<!-- CANVAS FILL TEXT -->
+unlockContext.fillText("Press to Unlock!!!", 25, 30);
+
+
+
+<!-- Time Canvas Clock -->
+function startTime() {
+	var today=new Date();
+	var h = today.getHours();
+	var m = today.getMinutes();
+	var date = today.getDate();
+	var month = today.getMonth();
+	var year = today.getYear();
+	var day = today.getDay();
+	var TOD = "AM";
+	if(month == 0){
+		month=1;
+	}
+	if (h>12) {
+		h=h-12;
+		TOD="PM";
+	}
+	else {TOD="AM";}
+	year = year + 1900;
+	if(day==0){day="Sunday";}
+	if(day==1){day="Monday";}
+	if(day==2){day="Tuesday";}
+	if(day==3){day="Wednesday";}
+	if(day==4){day="Thursday";}
+	if(day==5){day="Friday";}
+	if(day==6){day="Saturday";}
+	
+	if(m<10) {
+		m="0"+m;
+	}	
+	document.getElementById("clock").innerHTML=h + ":" + m +" "+ TOD;
+	document.getElementById("date").innerHTML= day +", "+ month +"/"+ date +"/"+ year;
+	var t = setTimeout(function(){startTime()},500);
+}
+</script>
 
 </body>
 </html>
